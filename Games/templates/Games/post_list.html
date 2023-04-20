@@ -6,7 +6,10 @@
 <ul>
 {% for post in object_list %}
 <li>
-    {{post}} <a href="{% url 'post-details' post.id %}"> Details</a>
+    {{post}} 
+    <a href="{% url 'post-details' post.id %}"> Details</a>
+    <a href="{% url 'post-update' post.id %}"> Update</a>
+    <a href="{% url 'post-delete' post.id %}"> Delete</a>
 </li>
 {% endfor %}
 </ul>

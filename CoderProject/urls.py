@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Games.views import index, PostList, PostDetail, PostCreate
+from Games.views import index, PostList, PostDetail, PostCreate, PostUpdate, PostDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,7 @@ urlpatterns = [
     path('post/list',PostList.as_view(), name='post-list'),
     path('post/<pk>/details',PostDetail.as_view(), name='post-details'),
     path('post/create',PostCreate.as_view(), name='post-create'),
+    path('post/<pk>/update',PostUpdate.as_view(), name='post-update'),
+    path('post/<pk>/dalete',PostDelete.as_view(), name='post-delete'),
 
 ]

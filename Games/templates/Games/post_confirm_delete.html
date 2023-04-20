@@ -1,0 +1,12 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    <h1>Estas a punto de borrar el post {{post.game_name}}, estas seguro?</h1>
+    {{form}}
+    &emsp; <input type="submit" value="Delate"> <a href="{% url 'post-list'%}"> Back</a>
+</form>
+{% endblock %}
