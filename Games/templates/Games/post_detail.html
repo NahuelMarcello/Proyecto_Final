@@ -1,0 +1,20 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<br>
+
+<p>
+    <h1>
+        {{object.name_game}}
+    </h1>
+    <br>
+    <h2>Descripcion:
+        <br>{{object.game_description}}
+    </h2>
+    <br>
+    <h3>
+        Su nota es: {{object.game_note}}
+    </h3>
+     &emsp;<a href="{% url 'post-list' %}"> Back</a>
+</p>
+{% endblock %}

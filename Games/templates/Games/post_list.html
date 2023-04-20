@@ -1,0 +1,13 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<br>
+
+<ul>
+{% for post in object_list %}
+<li>
+    {{post}} <a href="{% url 'post-details' post.id %}"> Details</a>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}
