@@ -45,14 +45,15 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
 
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
-     model = Post
-     success_url = reverse_lazy("post-list")
+    model = Post
+    success_url = reverse_lazy("post-list")
      
-     def test_func(self):
+    def test_func(self):
         user_id = self.request.user.id
         post_id = self.kwargs.get('pk')
         return Post.objects.filter(owner=user_id, id=post_id).exists()
-     def handle_no_permission(self):
+    
+    def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
 
 class SignUp(CreateView):
@@ -69,19 +70,45 @@ class Logout(LogoutView):
 
 class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
-    fields = ['steam_id', 'images']    
+    fields = ['steam_id', 'Contact', 'images']
+    success_url = reverse_lazy('post-list')  
     template_name = 'profile/profile_form.html'
-
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        return super().form_valid(form) 
     
     def test_func(self):
         user_id = self.request.user.id
-        owner_id = self.kwargs.get('pk')
-        return Profile.objects.filter(user=user_id, id=owner_id).exists()
+        profile_id = self.kwargs.get('pk')
+        return Profile.objects.filter(user=user_id, id=profile_id).exists()
+    
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
+
+
+class ProfileCreate(CreateView):
+    model = Profile
+    fields =['steam_id', 'Contact', 'images']
+    success_url = reverse_lazy('post-list')  
+    template_name = 'profile/profile_create.html'
+     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form) 
+    
+    def test_func(self):
+        user_id = self.request.user.id
+        profile_id = self.kwargs.get('pk')
+        return Profile.objects.filter(user=user_id, id=profile_id).exists()
+    
+    def handle_no_permission(self):
+        return render(self.request, "Games/not_found.html")
+
+class ProfileView(DeleteView):
+    model = Profile
+    fields = '__all__'
+    template_name = 'profile/profile_detail.html'
 
 class MessageCreate(CreateView):
     model = DM
@@ -93,11 +120,11 @@ class MessageList(LoginRequiredMixin, ListView):
     model = DM
     template_name = 'Mensajes/DM_list.html'
     context_object_name = "mensajes" 
-    
+
     def get_queryset(self):
         return DM.objects.filter(addressee = self.request.user.id).all()
 
-class MessageDelete(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
+class MessageDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = DM
     template_name = 'Mensajes/DM_confirm_delete.html'
     success_url = reverse_lazy('message-list')

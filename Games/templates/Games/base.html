@@ -54,7 +54,7 @@
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
           {% if user.profile.images %}
-            <a href="{% url 'profile-update' user.profile.id %}">
+            <a href="{% url 'profile' user.profile.id %}">
               <img src="{{ user.profile.images.url }}" height="100%" width="35px" style="border-radius: 50%; margin-right: 10px;">
             </a>
           {% endif %}
@@ -75,7 +75,10 @@
                   <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'profile-update' user.id %}"> -Profile-</a>
+                  <a class="nav-link" href="{% url 'profile-update' user.profile.id %}"> Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profile-create' user.id %}"> Create Profile</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'message-list' %}">  List Message</a>
