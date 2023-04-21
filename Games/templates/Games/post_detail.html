@@ -22,7 +22,7 @@
     <h3>
         Su nota es: {{object.game_note}}
     </h3>
-    <h6>Creado el: {{object.created_time}}</h6>
+    <h6>Creado el: {{object.created_time}} por {{object.owner}}</h6>
     &emsp;<a href="{% url 'post-list' %}"> Back</a>
 </p>
 {% endblock %}

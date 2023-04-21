@@ -16,5 +16,10 @@ class Post(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE,related_name='profile')
-    steam_id= models.CharField(max_length=255)
+    steam_id = models.CharField(max_length=255)
     images = models.ImageField(upload_to="profiles", null=True, blank=True)    
+
+class DM(models.Model):
+    message = models.TextField(max_length=1000)
+    email = models.EmailField()
+    addressee = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="receptor")

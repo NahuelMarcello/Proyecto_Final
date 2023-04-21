@@ -1,0 +1,25 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<ul>
+    <br>
+    
+    {% if not mensajes %}
+        <h2>No hay Mensajes </h2>
+    {% endif %}
+
+    {% for mensaje in mensajes %}
+    <li>
+        <p>{{mensaje.email}}</p>
+        <br>
+        <p>{{mensaje.message}}</p>
+        
+        {% if user.is_authenticated and mensaje.addressee == user %}
+            <a href="{% url 'message-delete' mensaje.id %}"> Delete</a>
+        {% endif %}
+
+
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

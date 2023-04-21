@@ -5,7 +5,7 @@
 <h1>Registro de Usuario</h1>
 <form method="POST">
     {% csrf_token %}
-  {%for field in form %}
+    {% for field in form %}
     <p class="fieldWrapper">
         {{ field.errors }}
         {{ field.label_tag }} {{field}}
