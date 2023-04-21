@@ -24,12 +24,12 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
     model = Post
     success_url = reverse_lazy("post-list")
     fields= '__all__'
-    
+     
     def test_func(self):
         user_id = self.request.user.id
         post_id = self.kwargs.get('pk')
         return Post.objects.filter(owner=user_id, id=post_id).exists()
-    def handle_no_permission8(self):
+    def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
 
 
@@ -41,7 +41,7 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
         user_id = self.request.user.id
         post_id = self.kwargs.get('pk')
         return Post.objects.filter(owner=user_id, id=post_id).exists()
-    def handle_no_permission8(self):
+     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
 
 class SignUp(CreateView):
