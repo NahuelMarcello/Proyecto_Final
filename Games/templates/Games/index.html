@@ -6,34 +6,27 @@
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       
-        
-          <div class="carousel-item active">
-              <img src="./curso_coder_house_files/puente-corrientes-resistencia.jpeg">
-            <div class="container">
+        {% for post in posts %}
+          {% if forloop.first %}
+            <div class="carousel-item active">
+          {% else %}
+            <div class="carousel-item">
+          {% endif %}
+          
+          {% if post.images %}
+              <img src="{{ post.images.url }}">
+          {% endif %}
+            
+          <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Puente Gral. Belgrano</h1>
-                <p>Une  Chaco con Corrientes</p>
-                <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/docs/5.0/examples/carousel/#">Sign up today</a></p>
+                <h1>{{post.game_name}}</h1>
+                <p>{{post.game_type}}</p>
+                <p><a class="btn btn-lg btn-dark" href="{%url 'post-details' post.id %}">More Details</a></p>
               </div>
             </div>
           </div>
+        {% endfor %}
         
-      
-        
-        <div class="carousel-item">
-          <img src="./curso_coder_house_files/cataratas-del-iguazu-misiones.jpeg">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Cataratas del Iguazu</h1>
-              <p>Maravilla Natural</p>
-              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/docs/5.0/examples/carousel/#">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        
-      
-      
-      
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -52,67 +45,18 @@
 
   <div class="container marketing">
 
-    <!-- Three columns of text below the carousel -->
     <div class="row">
 
-    
-      <div class="col-lg-4">
-        <img src="./curso_coder_house_files/puente-corrientes-resistencia.jpeg" height="144" width="144">
-        <h2>El puente</h2>
-        <p>vistas lindas del rio</p>
-        <p><a class="btn btn-secondary" href="https://getbootstrap.com/docs/5.0/examples/carousel/#">View details »</a></p>
-      </div><!-- /.col-lg-4 -->
-    
-      <div class="col-lg-4">
-        <img src="./curso_coder_house_files/cataratas-del-iguazu-misiones.jpeg" height="144" width="144">
-        <h2>Las cataratas</h2>
-        <p>un destino imperdible</p>
-        <p><a class="btn btn-secondary" href="https://getbootstrap.com/docs/5.0/examples/carousel/#">View details »</a></p>
-      </div><!-- /.col-lg-4 -->
-      
-    </div><!-- /.row -->
-
-
-    <!-- START THE FEATURETTES -->
-
-    
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">El puente</h2>
-        <p class="lead">vistas lindas del rio</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        
-          <img src="./curso_coder_house_files/puente-corrientes-resistencia.jpeg" height="400" width="400">
-        
-
-      </div>
-    </div>
-
-    
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Las cataratas</h2>
-        <p class="lead">un destino imperdible</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        
-          <img src="./curso_coder_house_files/cataratas-del-iguazu-misiones.jpeg" height="400" width="400">
-        
-
-      </div>
-    </div>
-
-    
-
-
-    <!-- /END THE FEATURETTES -->INDEX.
-
-  </div><!-- /.container -->
-
+      {%for post in posts %}
+        <div class="col-lg-4">
+          {% if post.images %}
+            <img src="{{ post.images.url }}" height="120" width="75%">
+          {% endif %}
+            <h4>{{post.game_name}}</h4>
+            <h5>Entra para mas detalles</h5>
+            <h6>owner: {{post.owner}}</h6>
+          <p><a class="btn btn-secondary" href="{%url 'post-details' post.id %}">View details »</a></p>
+        </div><!-- /.col-lg-4 -->
+      {% endfor %}    
 </main>
 {% endblock %}

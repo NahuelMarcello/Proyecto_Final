@@ -15,10 +15,14 @@
     {% if object.images %}
         <img src="{{ object.images.url }}" width="480px" height="100%">
     {% endif %}
+    {% if not object.images %}
+        <h1>No hay imaganes</h1>
+    {% endif %}
     <br>
     <h3>
         Su nota es: {{object.game_note}}
     </h3>
-     &emsp;<a href="{% url 'post-list' %}"> Back</a>
+    <h6>Creado el: {{object.created_time}}</h6>
+    &emsp;<a href="{% url 'post-list' %}"> Back</a>
 </p>
 {% endblock %}

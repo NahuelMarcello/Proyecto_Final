@@ -7,7 +7,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 def index(request):
-    return render(request, "Games/index.html")
+    context = {
+        "posts": Post.objects.all()
+    }
+    return render(request, "Games/index.html", context)
 
 class PostList(ListView):
     model = Post
@@ -56,12 +59,14 @@ class Login(LoginView):
 class Logout(LogoutView):
    template_name = 'registration/logout.html'
 
-class ProfileUpdate(UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
     fields = '__all__'
     template_name = 'profile/profile_form.html'
-
-class ProfileCreate(CreateView):
-    model = Profile
-    fields= '__all__'
-    template_name = 'profile/profile_form.html'
+    
+    def test_func(self):
+        user_id = self.request.user.id
+        owner_id = self.kwargs.get('pk')
+        return Profile.objects.filter(user=user_id, id=owner_id).exists()
+    def handle_no_permission(self):
+        return render(self.request, "Games/not_found.html")
