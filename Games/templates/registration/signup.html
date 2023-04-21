@@ -1,0 +1,16 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<br>
+<h1>Registro de Usuario</h1>
+<form method="POST">
+    {% csrf_token %}
+  {%for field in form %}
+    <p class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{field}}
+    </p>
+  {% endfor %}
+    &emsp; <input type="submit" value="regis me">
+</form>
+{% endblock %}

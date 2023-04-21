@@ -1,0 +1,17 @@
+{% extends "Games/base.html" %}
+
+{% block main %}
+<br>
+<h1>Inicio de sesion</h1>
+
+<form method="POST">
+    {% csrf_token %}
+  {%for field in form %}
+    <p class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{field}}
+    </p>
+  {% endfor %}
+    &emsp; <input type="submit" value="Sigin">
+</form>
+{% endblock %}

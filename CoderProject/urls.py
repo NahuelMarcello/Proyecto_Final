@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Games.views import index, PostList, PostDetail, PostCreate, PostUpdate, PostDelete
+from Games.views import index, PostList, PostDetail, PostCreate, PostUpdate, PostDelete, SignUp, Login, Logout
+from Games.forms import UserCreationForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,8 @@ urlpatterns = [
     path('post/create',PostCreate.as_view(), name='post-create'),
     path('post/<pk>/update',PostUpdate.as_view(), name='post-update'),
     path('post/<pk>/dalete',PostDelete.as_view(), name='post-delete'),
+    path('signup/', SignUp.as_view(), name="signup"),
+    path('login/', Login.as_view(), name="login"),
+    path('logout/', Logout.as_view(), name="logout"),
 
 ]
