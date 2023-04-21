@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Games.views import index, PostList, PostDetail, PostCreate, PostUpdate, PostDelete, SignUp, Login, Logout
+from Games.views import index, PostList, PostDetail, PostCreate, PostUpdate, PostDelete, SignUp, Login, Logout, ProfileUpdate, ProfileCreate
 from Games.forms import UserCreationForm
 from django.conf import settings
 from django.conf.urls.static import static
@@ -32,6 +32,8 @@ urlpatterns = [
     path('signup/', SignUp.as_view(), name="signup"),
     path('login/', Login.as_view(), name="login"),
     path('logout/', Logout.as_view(), name="logout"),
+    path('profile/<pk>/update', ProfileUpdate.as_view(), name='profile-update'),
+    path('profile/create', ProfileCreate.as_view(), name='profile-create'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

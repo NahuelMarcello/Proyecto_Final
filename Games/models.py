@@ -13,3 +13,9 @@ class Post(models.Model):
         return f"{self.id} - {self.game_name} - {self.game_type}"
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE,related_name='profile')
+    steam_id= models.CharField(max_length=255)
+    images = models.ImageField(upload_to="profiles", null=True, blank=True) 
+
+

@@ -53,6 +53,11 @@
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
+          {% if user.profile.images %}
+            <a href="{% url 'profile-update' user.profile.id %}">
+              <img src="{{ user.profile.images.url }}" height="100%" width="35px" style="border-radius: 50%; margin-right: 10px;">
+            </a>
+          {% endif %}
           <a class="navbar-brand" href="{% url 'index' %}">Gaming Blog</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

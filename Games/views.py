@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from Games.models import Post
+from Games.models import Post, Profile
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from Games.forms import SignUpForm
@@ -55,3 +55,13 @@ class Login(LoginView):
 
 class Logout(LogoutView):
    template_name = 'registration/logout.html'
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = '__all__'
+    template_name = 'profile/profile_form.html'
+
+class ProfileCreate(CreateView):
+    model = Profile
+    fields= '__all__'
+    template_name = 'profile/profile_form.html'
