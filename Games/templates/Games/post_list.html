@@ -8,7 +8,7 @@
 <li>
     {{post}} 
     <a href="{% url 'post-details' post.id %}"> Details</a>
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and post.owner == user %}
         <a href="{% url 'post-update' post.id %}"> Update</a>
         <a href="{% url 'post-delete' post.id %}"> Delete</a>
     {% endif %}
