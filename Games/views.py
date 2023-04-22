@@ -6,6 +6,7 @@ from  .forms import SignUpForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+
 def index(request):
     context = {
         "posts": Post.objects.all()
@@ -22,7 +23,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     success_url = reverse_lazy("post-list")
     fields= ['game_name','game_type','game_description','game_note','images']
-    
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
@@ -59,11 +60,10 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
-    success_url = reverse_lazy('post-list')
-
+    success_url = reverse_lazy('index')
 
 class Login(LoginView):
-    next_page = reverse_lazy('post-list')
+    next_page = reverse_lazy('index')
 
 class Logout(LogoutView):
    template_name = 'registration/logout.html'
@@ -71,11 +71,11 @@ class Logout(LogoutView):
 class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
     fields = ['steam_id', 'Contact', 'images']
-    success_url = reverse_lazy('post-list')  
+    success_url = reverse_lazy('index')  
     template_name = 'profile/profile_form.html'
     
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.profile = self.request.user
         return super().form_valid(form) 
     
     def test_func(self):
@@ -87,28 +87,18 @@ class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return render(self.request, "Games/not_found.html")
 
 
-class ProfileCreate(CreateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
-    fields =['steam_id', 'Contact', 'images']
-    success_url = reverse_lazy('post-list')  
+    fields = ['steam_id', 'Contact', 'images']
+    success_url = reverse_lazy('index')  
     template_name = 'profile/profile_create.html'
-     
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form) 
-    
-    def test_func(self):
-        user_id = self.request.user.id
-        profile_id = self.kwargs.get('pk')
-        return Profile.objects.filter(user=user_id, id=profile_id).exists()
-    
+        return super().form_valid(form)
+
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
-
-class ProfileView(DeleteView):
-    model = Profile
-    fields = '__all__'
-    template_name = 'profile/profile_detail.html'
 
 class MessageCreate(CreateView):
     model = DM

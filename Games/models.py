@@ -11,7 +11,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return f"{self.id} - {self.game_name} - {self.game_type}"
+        return f"Nombre: {self.game_name} Genero: {self.game_type} Owner: {self.owner}"
 
 
 class Profile(models.Model):
