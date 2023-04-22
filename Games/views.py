@@ -6,6 +6,8 @@ from  .forms import SignUpForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+def about(request):
+    return render(request, "Games/about.html")
 
 def index(request):
     context = {
@@ -13,6 +15,7 @@ def index(request):
     }
     return render(request, "Games/index.html", context)
 
+#CBV para posts
 class PostList(ListView):
     model = Post
 
@@ -57,6 +60,8 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
 
+#CBV para SignUp
+
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
@@ -68,24 +73,19 @@ class Login(LoginView):
 class Logout(LogoutView):
    template_name = 'registration/logout.html'
 
-class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#CBV para Perfil
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = ['steam_id', 'Contact', 'images']
     success_url = reverse_lazy('index')  
     template_name = 'profile/profile_form.html'
-    
     def form_valid(self, form):
         form.instance.profile = self.request.user
-        return super().form_valid(form) 
-    
-    def test_func(self):
-        user_id = self.request.user.id
-        profile_id = self.kwargs.get('pk')
-        return Profile.objects.filter(user=user_id, id=profile_id).exists()
+        return super().form_valid(form)
     
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
-
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
@@ -99,6 +99,8 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
+
+#CBV para mensajes
 
 class MessageCreate(CreateView):
     model = DM

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#Modelo para crear un Post
+
 class Post(models.Model):
     game_name = models.CharField(max_length=30)
     game_type = models.CharField(max_length=80)
@@ -13,12 +15,15 @@ class Post(models.Model):
     def __str__(self):
         return f"Nombre: {self.game_name} Genero: {self.game_type} Owner: {self.owner}"
 
+#Modelo para Perfil
 
 class Profile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE,related_name='profile')
     steam_id = models.CharField(max_length=255)
     Contact = models.CharField(max_length=75)
     images = models.ImageField(upload_to="profiles", null=True, blank=True)    
+
+#Modelo para Mensajes directos 
 
 class DM(models.Model):
     message = models.TextField(max_length=1000)

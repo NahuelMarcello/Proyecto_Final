@@ -71,11 +71,6 @@
                 <a class="nav-link" href="{% url 'post-list' %}">Games</a>
               </li>
               {% if user.is_authenticated %}
-                {% if user.profile.images %}  
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile-update' user.profile.id %}"> Profile</a>
-                  </li>
-                  {% endif %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'profile-create' user.id %}"> Create Profile</a>
                 </li>
@@ -96,7 +91,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'message-create' %}">  Direct Message</a>
               </li>
-
             </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -112,7 +106,7 @@
 
     <!-- FOOTER -->
   <footer class="container">
-    <p class="float-end"><a href="https://getbootstrap.com/docs/5.0/examples/carousel/#">Back to top</a></p>
+  <p class="float-end"><a href="{% url 'about'  %}"> About</a></p>
     <p>© 2017–2021 Company, Inc. · <a href="https://getbootstrap.com/docs/5.0/examples/carousel/#">Privacy</a> · <a href="https://getbootstrap.com/docs/5.0/examples/carousel/#">Terms</a></p>
   </footer>
     
