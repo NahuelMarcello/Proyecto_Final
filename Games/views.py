@@ -11,7 +11,8 @@ def about(request):
 
 def index(request):
     context = {
-        "posts": Post.objects.all()
+        "posts": Post.objects.all(),
+        "profile": Profile.objects.all()
     }
     return render(request, "Games/index.html", context)
 
@@ -80,6 +81,7 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     fields = ['steam_id', 'Contact', 'images']
     success_url = reverse_lazy('index')  
     template_name = 'profile/profile_form.html'
+    
     def form_valid(self, form):
         form.instance.profile = self.request.user
         return super().form_valid(form)
@@ -100,13 +102,21 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
     def handle_no_permission(self):
         return render(self.request, "Games/not_found.html")
 
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    fields = '__all__'
+    template_name = 'profile/profile_detail.html'
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user
+        return super().form_valid(form)
 #CBV para mensajes
 
 class MessageCreate(CreateView):
     model = DM
     fields = '__all__'
     template_name = 'Mensajes/DM_form.html'
-    success_url = reverse_lazy('post-list')
+    success_url = reverse_lazy('index')
 
 class MessageList(LoginRequiredMixin, ListView):
     model = DM
