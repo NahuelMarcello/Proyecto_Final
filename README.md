@@ -27,4 +27,4 @@ dar un descripcion y nota de los mismos estilo paginas conocidas como IGN o Meta
     Python (Version mas actual 22/4/2023)
     Django (Version mas actual 22/4/2023)
 # Video demostracion
-(https://youtu.be/5ZBrXP9enNQ)
+https://youtu.be/5ZBrXP9enNQ
